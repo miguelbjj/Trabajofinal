@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321745139265",
+    "project_id": "trabajodpm",
+    "storage_bucket": "trabajodpm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321745139265:android:49fef9a8efce82498478c0",
+        "android_client_info": {
+          "package_name": "com.example.trabajofinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321745139265-qpfqnp37r48721854vk17et9fhet6kic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ZOOAhc7oE0jbkQqIlRE1MS8AfT6pofc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321745139265-qpfqnp37r48721854vk17et9fhet6kic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

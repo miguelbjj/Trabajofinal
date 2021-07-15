@@ -1,5 +1,6 @@
 package com.example.trabajofinal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,10 +10,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class LoginActivity extends AppCompatActivity {
 EditText user, pass;
-Button btnEntrar, btnRegistrar;
-daoUsuario dao;
+Button btnEntrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,44 +32,48 @@ daoUsuario dao;
         user=(EditText)findViewById(R.id.editTextTextPersonName);
         pass=(EditText)findViewById(R.id.editTextTextPassword);
         btnEntrar=(Button)findViewById(R.id.button);
-        btnRegistrar=(Button)findViewById(R.id.button2);
-        btnEntrar.setOnClickListener(this);
-        btnRegistrar.setOnClickListener(this);
-        dao=new daoUsuario(this);
+
+        btnEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validarUs("http://192.168.1.3/trabajofinal/validar.php");
+            }
+        });
+
     }
 
-    @Override
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.button:
-                String u=user.getText().toString();
-                String p=pass.getText().toString();
-                if (u.equals("")&&p.equals("")){
-                    Toast.makeText(this, "ERROR: Campos Vacios",Toast.LENGTH_LONG).show();
-                }else if (dao.login(u,p)==1){
-                    Usuario ux=dao.getUsuario(u,p);
-                    Toast.makeText(this, "Ingreso exitoso",Toast.LENGTH_LONG).show();
-                    Intent i2=new Intent(LoginActivity.this,Menu1Activity.class);
-                    i2.putExtra("Id", ux.getId());
-                    startActivity(i2);
-                }else
-                    Toast.makeText(this, "Usuario y/o password incorrectos", Toast.LENGTH_LONG).show();
-                break;
+    private void validarUs(String URL) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(!response.isEmpty()){
+                    Toast.makeText(LoginActivity.this, "Ingreso Exitoso", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(LoginActivity.this,Menu1Activity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Usuario y/o Password incorrectos", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros=new HashMap<String, String>();
+                parametros.put("usuario", user.getText().toString());
+                parametros.put("password", pass.getText().toString());
+                return parametros;
+            }
+        };
 
-            case R.id.button2:
-                Intent i=new Intent(LoginActivity.this,RegistroActivity.class);
-                startActivity(i);
-                break;
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+    public void onClick(View view) {
+        Intent miIntent2=new Intent(LoginActivity.this,RegistroActivity.class);
+         startActivity(miIntent2);
         }
-    }
-
-    //public void onClick(View view) {
-        //Intent miIntent=new Intent(LoginActivity.this,RegistroActivity.class);
-       // startActivity(miIntent);
-    //}
-
-    //public void onClick2(View view) {
-        //Intent miIntent=new Intent(LoginActivity.this,Menu1Activity.class);
-        //startActivity(miIntent);
-    //}
 }

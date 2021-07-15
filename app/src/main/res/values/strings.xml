@@ -17,4 +17,6 @@
     <string name="Abarrotes">Abarrotes</string>
     <string name="Buscar">Buscar</string>
     <string name="Mapa">Mapa</string>
+    <string name="URL_PRODUCTOS">http://192.168.1.3/trabajofinal/obtener.php</string>
+    <string name="Home">Home</string>
 </resources>

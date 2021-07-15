@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.trabajofinal">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher"
@@ -12,13 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trabajofinal"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".MapaBasicoActivity">
 
+        <activity android:name=".MapaBasicoActivity">
         </activity>
+
         <activity
             android:name=".Menu1Activity"
             android:label="@string/title_activity_menu1"
             android:theme="@style/Theme.Trabajofinal.NoActionBar"></activity>
+
         <activity android:name=".RegistroActivity" />
         <activity android:name=".CargaActivity">
             <intent-filter>
@@ -29,6 +34,12 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".BuscadorProducto">
+
+        </activity>
+
+        <service android:name=".MyAndroidFirebaseMsgService">
+        </service>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -36,6 +47,11 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC9ZOOAhc7oE0jbkQqIlRE1MS8AfT6pofc" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value=" my_channel_id_01" />
+
     </application>
 
 </manifest>

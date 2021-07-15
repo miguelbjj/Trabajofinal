@@ -14,21 +14,23 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trabajofinal.R;
 import com.example.trabajofinal.databinding.FragmentGalleryBinding;
+import com.example.trabajofinal.databinding.FragmentHomeBinding;
+import com.example.trabajofinal.ui.home.HomeViewModel;
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment<FragmentGalleryBinding> extends Fragment {
 
     private GalleryViewModel galleryViewModel;
-    private FragmentGalleryBinding binding;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
+        final TextView textView = binding.textHome;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -43,4 +45,5 @@ public class GalleryFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
